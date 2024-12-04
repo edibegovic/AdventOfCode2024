@@ -54,7 +54,7 @@ def is_mas(grid, pos):
         [grid[i - 1, j - 1], grid[i + 1, j + 1]] in [["M", "S"], ["S", "M"]],
         [grid[i - 1, j + 1], grid[i + 1, j - 1]] in [["M", "S"], ["S", "M"]],
     ]
-    return sum(diags) == 2
+    return all(diags)
 
 
 count = 0
