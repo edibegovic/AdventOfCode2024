@@ -15,9 +15,11 @@ def blink(stone):
     if stone == 0:
         return [1]
     if len(stone_str := str(stone)) % 2 == 0:
-        return map(
-            int,
-            [stone_str[: len(stone_str) // 2], stone_str[len(stone_str) // 2 :]],
+        return list(
+            map(
+                int,
+                [stone_str[: len(stone_str) // 2], stone_str[len(stone_str) // 2 :]],
+            )
         )
     else:
         return [2024 * stone]
@@ -31,8 +33,15 @@ len(stones)
 # ------------------------------
 # Part 2
 # ------------------------------
-from collections import defaultdict
-from functools import reduce
+from functools import lru_cache
 
-stone_dict = defaultdict(dict)
 
+@lru_cache(maxsize=None)
+def blink_rec(stone, depth):
+    if depth == 1:
+        return len(blink(stone))
+    else:
+        return sum([blink_rec(s, depth - 1) for s in blink(stone)])
+
+
+sum([blink_rec(s, 75) for s in stones])
