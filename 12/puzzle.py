@@ -2,7 +2,7 @@ import numpy as np
 from functools import lru_cache
 from itertools import groupby
 
-with open("sample2.txt") as f:
+with open("input.txt") as f:
     lines = f.readlines()
 
 grid = np.array([list(line.strip()) for line in lines])
@@ -82,4 +82,4 @@ def get_edges(region):
     return sum(row_segments(pad(grid)) + row_segments(pad(grid.T)))
 
 
-get_edges(regions[0])
+sum([len(region) * get_edges(region) for region in regions])
